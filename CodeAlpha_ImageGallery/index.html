@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>frame. — Image Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Scroll progress bar -->
+  <div id="scroll-bar"></div>
+
+  <!-- ══════════════════════ NAVBAR ══════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-logo" id="logo-btn">frame<span class="dot">.</span></div>
+
+    <div class="nav-search">
+      <svg class="srch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="Search photos, artists, tags…" autocomplete="off" />
+      <button class="srch-clear hidden" id="srch-clear">✕</button>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="ntab active" data-view="explore">Explore</button>
+      <button class="ntab" data-view="favs">Favourites <span class="nbadge hidden" id="fav-count">0</span></button>
+      <button class="ntab" data-view="saved">Saved <span class="nbadge hidden" id="save-count">0</span></button>
+    </div>
+
+    <div class="nav-auth" id="nav-auth">
+      <button class="btn-signin" id="open-auth">Sign In</button>
+    </div>
+
+    <button class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mob-menu hidden" id="mob-menu">
+    <button class="mob-btn active" data-view="explore">⊞ Explore</button>
+    <button class="mob-btn" data-view="favs">♡ Favourites</button>
+    <button class="mob-btn" data-view="saved">⊟ Saved</button>
+    <div class="mob-divider"></div>
+    <div id="mob-auth-wrap"></div>
+  </div>
+
+  <!-- ══════════════════════ HERO ══════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-tag">✦ Curated Photography</div>
+      <h1 class="hero-title">Discover <em>Stunning</em><br/>Photography</h1>
+      <p class="hero-sub">Explore the handpicked shots from the world's finest photographers.</p>
+      <button class="hero-cta" id="hero-cta">Browse Gallery ↓</button>
+    </div>
+    <div class="hero-orbs">
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════ FILTERS ══════════════════════ -->
+  <div class="filters-bar" id="filters-bar">
+    <div class="cats-row" id="cats-row"></div>
+    <div class="filter-meta" id="filter-meta"></div>
+  </div>
+
+  <!-- Section heading for favs/saved -->
+  <div class="section-head hidden" id="section-head"></div>
+
+  <!-- Search result label -->
+  <div class="search-label hidden" id="search-label"></div>
+
+  <!-- ══════════════════════ GALLERY GRID ══════════════════════ -->
+  <main class="gallery" id="gallery"></main>
+
+  <!-- ══════════════════════ FOOTER ══════════════════════ -->
+  <footer class="footer">
+    <div>frame<span class="dot">.</span></div>
+    <div class="footer-mid">CodeAlpha Internship · Task 1 · Frontend Development</div>
+    <div class="footer-right">HTML · CSS · JavaScript</div>
+  </footer>
+
+  <!-- ══════════════════════ LIGHTBOX ══════════════════════ -->
+  <div class="lightbox hidden" id="lightbox">
+    <div class="lb-bg" id="lb-bg"></div>
+
+    <button class="lb-close" id="lb-close">✕</button>
+    <button class="lb-arrow lb-prev" id="lb-prev">&#8592;</button>
+    <button class="lb-arrow lb-next" id="lb-next">&#8594;</button>
+
+    <div class="lb-wrap" id="lb-wrap">
+      <div class="lb-left">
+        <div class="lb-img-box" id="lb-img-box">
+          <img id="lb-img" src="" alt="" />
+          <div class="lb-loading" id="lb-loading">
+            <div class="lb-spinner"></div>
+          </div>
+        </div>
+        <div class="lb-counter" id="lb-counter">1 / 24</div>
+      </div>
+
+      <div class="lb-right">
+        <span class="lb-cat" id="lb-cat"></span>
+        <h2 class="lb-title" id="lb-title"></h2>
+        <p class="lb-author" id="lb-author"></p>
+        <div class="lb-tags" id="lb-tags"></div>
+
+        <div class="lb-sep"></div>
+
+        <div class="lb-btns">
+          <button class="lb-btn lb-fav" id="lb-fav">
+            <span class="lb-icon">♡</span> Favourite
+          </button>
+          <button class="lb-btn lb-sav" id="lb-sav">
+            <span class="lb-icon">⊞</span> Save
+          </button>
+        </div>
+        <p class="lb-hint hidden" id="lb-hint">
+          <button class="lb-hint-link" id="lb-hint-link">Sign in</button> to favourite &amp; save
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ AUTH MODAL ══════════════════════ -->
+  <div class="auth-modal hidden" id="auth-modal">
+    <div class="auth-bg" id="auth-bg"></div>
+
+    <div class="auth-box" id="auth-box">
+      <button class="auth-close" id="auth-close">✕</button>
+
+      <div class="auth-logo">frame<span class="dot">.</span></div>
+      <p class="auth-tagline" id="auth-tagline">Welcome back — sign in to your collection</p>
+
+      <div class="auth-tabs">
+        <button class="atab active" id="atab-login" data-atab="login">Sign In</button>
+        <button class="atab" id="atab-signup" data-atab="signup">Sign Up</button>
+      </div>
+
+      <div class="auth-fields">
+        <div class="afield hidden" id="field-name">
+          <label>Full Name</label>
+          <input type="text" id="inp-name" placeholder="Rohan Mehta" autocomplete="name"/>
+        </div>
+        <div class="afield">
+          <label>Email</label>
+          <input type="email" id="inp-email" placeholder="you@example.com" autocomplete="email"/>
+        </div>
+        <div class="afield">
+          <label>Password</label>
+          <div class="pass-wrap">
+            <input type="password" id="inp-pass" placeholder="••••••••" autocomplete="current-password"/>
+            <button type="button" class="pass-eye" id="pass-eye">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="auth-err hidden" id="auth-err"></div>
+        <button class="auth-submit" id="auth-submit">
+          <span id="submit-txt">Sign In →</span>
+          <span class="submit-spin hidden" id="submit-spin"></span>
+        </button>
+      </div>
+
+      <p class="auth-foot">
+        <span id="auth-foot-txt">New to frame?</span>
+        <button class="auth-foot-btn" id="auth-foot-btn">Create account</button>
+      </p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ TOAST ══════════════════════ -->
+  <div class="toast-stack" id="toast-stack"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

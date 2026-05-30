@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lyrix — Where Sound Lives</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ==================== LOADING SCREEN ==================== -->
+  <div id="loading-screen">
+    <div class="loader-inner">
+      <div class="loader-logo">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="loader-svg">
+          <circle cx="40" cy="40" r="36" stroke="url(#lg1)" stroke-width="2"/>
+          <path d="M28 28 L28 52 L52 40 Z" fill="url(#lg2)"/>
+          <defs>
+            <linearGradient id="lg1" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#a78bfa"/>
+              <stop offset="1" stop-color="#38bdf8"/>
+            </linearGradient>
+            <linearGradient id="lg2" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#a78bfa"/>
+              <stop offset="1" stop-color="#38bdf8"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <p class="loader-brand">LYRIX</p>
+      <div class="loader-bars">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <p class="loader-tagline">Initialising your soundscape…</p>
+    </div>
+  </div>
+
+  <!-- ==================== TOAST CONTAINER ==================== -->
+  <div id="toast-container"></div>
+
+  <!-- ==================== ANIMATED BACKGROUND ==================== -->
+  <div id="bg-canvas-wrap">
+    <canvas id="bg-canvas"></canvas>
+    <div class="aurora-layer"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- ==================== MINI PLAYER ==================== -->
+  <div id="mini-player" class="hidden">
+    <img id="mini-cover" src="" alt="cover"/>
+    <div class="mini-info">
+      <span id="mini-title">—</span>
+      <span id="mini-artist">—</span>
+    </div>
+    <div class="mini-controls">
+      <button id="mini-prev"><i class="fa-solid fa-backward-step"></i></button>
+      <button id="mini-play"><i class="fa-solid fa-play"></i></button>
+      <button id="mini-next"><i class="fa-solid fa-forward-step"></i></button>
+    </div>
+    <div class="mini-progress-wrap">
+      <div id="mini-progress-bar"><div id="mini-progress-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN WRAPPER ==================== -->
+  <div id="app">
+
+    <!-- ====== HEADER ====== -->
+    <header id="site-header">
+      <div class="header-left">
+        <div class="brand">
+          <svg viewBox="0 0 44 44" fill="none" class="brand-svg">
+            <circle cx="22" cy="22" r="20" stroke="url(#hg)" stroke-width="1.5"/>
+            <path d="M15 15 L15 29 L29 22 Z" fill="url(#hg2)"/>
+            <defs>
+              <linearGradient id="hg" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#a78bfa"/><stop offset="1" stop-color="#38bdf8"/>
+              </linearGradient>
+              <linearGradient id="hg2" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#a78bfa"/><stop offset="1" stop-color="#38bdf8"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span>LYRIX</span>
+        </div>
+        <p id="greeting-text">Good Evening</p>
+      </div>
+
+      <div class="header-center">
+        <div class="search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="search-input" placeholder="Search tracks, artists…" autocomplete="off"/>
+          <button id="search-clear"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button id="theme-toggle" title="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button id="stats-toggle" title="Statistics">
+          <i class="fa-solid fa-chart-simple"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- ====== HERO SECTION ====== -->
+    <section id="hero">
+      <div class="hero-text">
+        <h1 class="hero-title">Where <em>Sound</em> Lives</h1>
+        <p class="hero-sub">Premium music experience. Zero compromises.</p>
+      </div>
+      <div class="hero-orb"></div>
+    </section>
+
+    <!-- ====== MAIN PLAYER ====== -->
+    <section id="player-section">
+
+      <!-- Album Art + Visualizer -->
+      <div class="player-left">
+        <div class="cover-ring-outer">
+          <div class="cover-ring-mid">
+            <div id="cover-wrap" class="cover-wrap">
+              <img id="album-cover" src="https://picsum.photos/seed/lyrix0/400/400" alt="Album Art"/>
+              <div class="cover-overlay"></div>
+            </div>
+          </div>
+        </div>
+        <canvas id="visualizer" width="340" height="90"></canvas>
+      </div>
+
+      <!-- Player Controls -->
+      <div class="player-right">
+        <div class="track-info">
+          <h2 id="track-title">Loading…</h2>
+          <p id="track-artist">—</p>
+          <p id="track-album" class="track-album-label">—</p>
+        </div>
+
+        <div class="progress-section">
+          <span id="current-time">0:00</span>
+          <div id="progress-bar" class="progress-bar">
+            <div id="progress-fill" class="progress-fill">
+              <div class="progress-thumb"></div>
+            </div>
+          </div>
+          <span id="total-time">0:00</span>
+        </div>
+
+        <div class="controls-row">
+          <button id="btn-shuffle" class="ctrl-btn secondary" title="Shuffle (S)">
+            <i class="fa-solid fa-shuffle"></i>
+          </button>
+          <button id="btn-prev" class="ctrl-btn secondary" title="Previous (←)">
+            <i class="fa-solid fa-backward-step"></i>
+          </button>
+          <button id="btn-play" class="ctrl-btn primary" title="Play/Pause (Space)">
+            <i class="fa-solid fa-play"></i>
+          </button>
+          <button id="btn-next" class="ctrl-btn secondary" title="Next (→)">
+            <i class="fa-solid fa-forward-step"></i>
+          </button>
+          <button id="btn-repeat" class="ctrl-btn secondary" title="Repeat (R)">
+            <i class="fa-solid fa-repeat"></i>
+          </button>
+        </div>
+
+        <div class="volume-row">
+          <button id="btn-mute" class="icon-btn"><i class="fa-solid fa-volume-high"></i></button>
+          <input type="range" id="volume-slider" min="0" max="100" value="75" title="Volume"/>
+          <span id="volume-display">75%</span>
+          <button id="btn-fav" class="icon-btn fav-btn" title="Add to Favourites">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== LOWER PANELS ====== -->
+    <div id="panels">
+
+      <!-- Playlist -->
+      <div class="panel" id="playlist-panel">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-list-music"></i> Playlist</h3>
+          <span id="playlist-count" class="badge">0</span>
+        </div>
+        <ul id="playlist" class="track-list"></ul>
+      </div>
+
+      <!-- Favourites -->
+      <div class="panel" id="favourites-panel">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-heart"></i> Favourites</h3>
+          <span id="fav-count" class="badge">0</span>
+        </div>
+        <ul id="fav-list" class="track-list"></ul>
+      </div>
+
+      <!-- Recently Played -->
+      <div class="panel" id="recent-panel">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-clock-rotate-left"></i> Recently Played</h3>
+        </div>
+        <ul id="recent-list" class="track-list"></ul>
+      </div>
+
+    </div>
+
+    <!-- ====== STATS PANEL ====== -->
+    <div id="stats-panel" class="hidden">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <i class="fa-solid fa-music"></i>
+          <span id="stat-total" class="stat-num">0</span>
+          <p>Total Tracks</p>
+        </div>
+        <div class="stat-card">
+          <i class="fa-solid fa-clock"></i>
+          <span id="stat-time" class="stat-num">0m</span>
+          <p>Listened</p>
+        </div>
+        <div class="stat-card">
+          <i class="fa-solid fa-heart"></i>
+          <span id="stat-favs" class="stat-num">0</span>
+          <p>Favourites</p>
+        </div>
+        <div class="stat-card">
+          <i class="fa-solid fa-history"></i>
+          <span id="stat-recent" class="stat-num">0</span>
+          <p>Recently Played</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== FOOTER ====== -->
+    <footer id="site-footer">
+      <p class="footer-brand">LYRIX</p>
+      <p class="footer-sub">© 2025 · Premium Music Experience · All royalty-free tracks</p>
+      <p class="footer-keys">
+        <kbd>Space</kbd> Play/Pause &nbsp;
+        <kbd>←</kbd> Prev &nbsp;
+        <kbd>→</kbd> Next &nbsp;
+        <kbd>↑↓</kbd> Volume &nbsp;
+        <kbd>F</kbd> Fav &nbsp;
+        <kbd>S</kbd> Shuffle &nbsp;
+        <kbd>R</kbd> Repeat &nbsp;
+        <kbd>M</kbd> Mute
+      </p>
+    </footer>
+
+  </div><!-- /#app -->
+
+  <!-- Hidden audio element -->
+  <audio id="audio-player" crossorigin="anonymous"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
